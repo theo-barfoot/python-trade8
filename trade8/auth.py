@@ -30,7 +30,7 @@ def get_auth_headers(timestamp, message, api_key, api_secret):
     signature = hmac.new(api_secret.encode('utf-8'), message.encode('utf-8'), hashlib.sha256)
     signature_b64 = base64.b64encode(signature.digest()).decode('utf-8')
     return {
-        'WCX-APIKEY': api_key,
-        'WCX-TIMESTAMP': timestamp,
-        'WCX-SIG': signature_b64,
+        'T8-APIKEY': api_key,
+        'T8-TIMESTAMP': timestamp,
+        'T8-SIG': signature_b64,
     }
