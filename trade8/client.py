@@ -23,7 +23,7 @@ class Client:
             # Use public endpoints, no authentication required and demo is irrelevant
             r = requests.request(method, url, params=params)
 
-        return r
+        return r.json()
 
     def get_positions(self):
         endpoint = '/trading/positions'
@@ -69,25 +69,25 @@ class Client:
 
     # Public endpoints:
 
-    def get_products(self, product: str = ''):
+    def get_products(self, product: str = '') -> dict:
         """
         List products available to trade
         :param product: (optional) Limits returned results to this product
-        :return:
+        :return: JSON response
         """
         endpoint = f'/trading/products/{product}'
         return self._request('get', endpoint)
 
-    def get_quotes(self, products: list):
+    def get_quotes(self, products: list) -> dict:
         """
         Get quotes for the provided product(s)
         :param products: list of strings of one or more products
-        :return:
+        :return: JSON response
         """
         endpoint = f"/trading/quotes/{','.join(products)}"
         return self._request('get', endpoint)
 
-    def get_candles(self, product: str, resolution: str, **params):
+    def get_candles(self, product: str, resolution: str, **params) -> list:
         """
         Lists historical candles for a product. Candles returns are grouped by resolution.
         :param product: product to get candles for
@@ -99,7 +99,7 @@ class Client:
             start: integer representing utc time in seconds after which to fetch candles
             end: integer representing utc time in seconds before which to fetch candles
             limit: string representing the number of candles to return, maximum is 150
-        :return:
+        :return: JSON response
         """
         endpoint = f'/trading/candles/{product}/{resolution}'
         return self._request('get', endpoint, params)
