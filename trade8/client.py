@@ -87,7 +87,7 @@ class Client:
         endpoint = f"/trading/quotes/{','.join(products)}"
         return self._request('get', endpoint)
 
-    def get_candles(self, product: str, resolution: str, **params) -> list:
+    def get_candles(self, product: str, resolution: int, **params) -> list:
         """
         Lists historical candles for a product. Candles returns are grouped by resolution.
         :param product: product to get candles for
